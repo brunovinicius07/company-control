@@ -1,0 +1,38 @@
+package com.companycontrol.model.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+@Builder
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "TB_PRODUCT_INPUT")
+public class ProductInput implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idProductInput;
+
+    @ManyToOne
+    @JoinColumn(name = "idProduct")
+    private Product product;
+
+    private int quantityInput;
+
+    private LocalDateTime MovementTime;
+
+    @OneToOne(mappedBy = "productInput")
+    private Employee employee;
+}

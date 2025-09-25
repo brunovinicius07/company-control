@@ -30,6 +30,8 @@ public class Client implements Serializable {
     @NotBlank
     private String nmClient;
 
+    private boolean isPhysicalPerson;
+
     @Column(unique = true)
     @Size(min = 14, max = 14)
     private String cnpj;
@@ -39,7 +41,6 @@ public class Client implements Serializable {
     private String cpf;
 
     @NotBlank
-    private boolean isPhysicalPerson;
 
     @ManyToMany(mappedBy = "clients")
     private Company company;

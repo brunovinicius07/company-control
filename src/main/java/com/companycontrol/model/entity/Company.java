@@ -33,13 +33,14 @@ public class Company implements Serializable {
     @Size(min = 14, max = 14)
     private String cnpj;
 
+
+    @OneToOne(mappedBy = "company")
+    private Stock stock;
+
     @JoinColumn(name = "idOwner")
     @ManyToOne
     @NotNull
     private Owner owner;
-
-    @OneToOne(mappedBy = "company")
-    private Stock stock;
 
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
