@@ -1,5 +1,6 @@
 package com.companycontrol.model.entity;
 
+import com.companycontrol.model.enums.UnitType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -8,6 +9,7 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Builder
 @Getter
@@ -31,6 +33,8 @@ public class Product implements Serializable {
 
     private String dsProduct;
 
+    private UnitType unityType;
+
     @Digits(integer = 5, fraction = 2)
     @PositiveOrZero
     private BigDecimal costValue;
@@ -44,4 +48,7 @@ public class Product implements Serializable {
     @JoinColumn(name = "idStock")
     @ManyToOne
     private Stock stock;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductMovement> productUsedList;
 }

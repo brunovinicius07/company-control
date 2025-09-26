@@ -6,6 +6,7 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Getter
@@ -25,14 +26,23 @@ public class ProductOutput implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProductOutput;
 
-    @ManyToOne
-    @JoinColumn(name = "idProduct")
-    private Product product;
-
-    private int quantityOutput;
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    @JoinTable(
+            name = "TB_PRODUCT_OUTPUT_PRODUCT_MOVEMENT",
+            joinColumns = @JoinColumn(name = "idProductOutput"),
+            inverseJoinColumns = @JoinColumn(name = "idProductMovement")
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<ProductMovement> productMovements;
 
     private LocalDateTime MovementTime;
 
-    @OneToOne(mappedBy = "productOutput")
+    @ManyToOne
+    @JoinColumn(name = "idEmployee")
     private Employee employee;
+
+    @ManyToOne
+    @JoinColumn(name = "idClient")
+    private Client client;
 }
